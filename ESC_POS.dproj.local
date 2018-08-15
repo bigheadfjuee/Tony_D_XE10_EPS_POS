@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2015/12/30 17:49:26.000.933,=C:\Users\tony\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/01/04 10:55:58.000.871,=C:\Users\tony\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/03/25 11:58:24.000.512,=C:\Users\tony\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/05/20 11:56:32.000.902,=C:\Users\tony\Documents\Embarcadero\Studio\Projects\FormUnit1.pas</Transaction>
+    <Transaction>2016/05/20 11:56:33.000.953,=C:\Users\tony\Documents\Embarcadero\Studio\Projects\WebModuleUnit1.pas</Transaction>
+    <Transaction>2016/05/26 11:42:03.000.751,=C:\Users\tony\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/05/26 13:37:37.000.235,=C:\Users\tony\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/07/06 17:20:40.000.861,=C:\Users\tony\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2016/07/06 17:21:11.000.105,C:\Users\tony\Documents\Embarcadero\Studio\Projects\Unit1.pas=F:\Tony Project\LPT_EPS_POS\Unit1.pas</Transaction>
+    <Transaction>2016/07/06 17:21:11.000.105,C:\Users\tony\Documents\Embarcadero\Studio\Projects\Unit1.fmx=F:\Tony Project\LPT_EPS_POS\Unit1.fmx</Transaction>
+    <Transaction>2016/07/06 17:21:12.000.043,C:\Users\tony\Documents\Embarcadero\Studio\Projects\Project1.dproj=F:\Tony Project\LPT_EPS_POS\Project1.dproj</Transaction>
+    <Transaction>2016/07/06 18:19:07.000.389,F:\Tony Project\LPT_EPS_POS\EPS_POS.dproj=F:\Tony Project\LPT_EPS_POS\Project1.dproj</Transaction>
+    <Transaction>2016/07/06 18:19:31.000.000,F:\Tony Project\LPT_EPS_POS\ESC_POS.dproj=F:\Tony Project\LPT_EPS_POS\EPS_POS.dproj</Transaction>
+    <Transaction>2016/07/07 15:40:24.000.398,F:\Tony Project\LPT_EPS_POS\ESC_POS_USB.dproj=F:\Tony Project\LPT_EPS_POS\ESC_POS.dproj</Transaction>
+    <Transaction>2016/07/07 16:49:15.000.524,F:\Tony Project\LPT_EPS_POS\ESC_POS.dproj=F:\Tony Project\LPT_EPS_POS\ESC_POS_USB.dproj</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<PTony-MBP iOSSimulator="iPhone5"/>
+		<NoProfile Android="0a17af95"/>
+	</ActiveMobileDevice>
+</BorlandProject>

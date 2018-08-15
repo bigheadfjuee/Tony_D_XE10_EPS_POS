@@ -1,0 +1,52 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'ESC_POS_v1.5'
+  ClientHeight = 400
+  ClientWidth = 446
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object btnStart: TButton
+    Position.X = 8.000000000000000000
+    Position.Y = 288.000000000000000000
+    Size.Width = 129.000000000000000000
+    Size.Height = 41.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    Text = #35712#27284#20006#21015#21360'(LPT1)'
+    OnClick = btnStartClick
+  end
+  object Memo1: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    Position.X = 8.000000000000000000
+    Position.Y = 56.000000000000000000
+    Size.Width = 433.000000000000000000
+    Size.Height = 217.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Viewport.Width = 429.000000000000000000
+    Viewport.Height = 213.000000000000000000
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 176
+    Top = 296
+  end
+  object labPort: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 16.000000000000000000
+    Scale.X = 2.000000000000000000
+    Scale.Y = 2.000000000000000000
+    Text = 'labPort'
+  end
+  object tmrClose: TTimer
+    Enabled = False
+    Interval = 3000
+    OnTimer = tmrCloseTimer
+    Left = 208
+    Top = 184
+  end
+end
