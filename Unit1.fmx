@@ -10,9 +10,9 @@ object Form1: TForm1
   OnCreate = FormCreate
   DesignerMasterStyle = 0
   object btnStart: TButton
-    Position.X = 8.000000000000000000
-    Position.Y = 288.000000000000000000
-    Size.Width = 129.000000000000000000
+    Align = Bottom
+    Position.Y = 359.000000000000000000
+    Size.Width = 446.000000000000000000
     Size.Height = 41.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
@@ -22,31 +22,34 @@ object Form1: TForm1
   object Memo1: TMemo
     Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
     DataDetectorTypes = []
-    Position.X = 8.000000000000000000
-    Position.Y = 56.000000000000000000
-    Size.Width = 433.000000000000000000
-    Size.Height = 217.000000000000000000
+    StyledSettings = [Style, FontColor]
+    TextSettings.Font.Family = #24494#36575#27491#40657#39636
+    TextSettings.Font.Size = 15.000000000000000000
+    Align = Client
+    Size.Width = 446.000000000000000000
+    Size.Height = 325.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
-    Viewport.Width = 429.000000000000000000
-    Viewport.Height = 213.000000000000000000
+    Viewport.Width = 442.000000000000000000
+    Viewport.Height = 321.000000000000000000
   end
   object OpenDialog1: TOpenDialog
-    Left = 176
-    Top = 296
+    Left = 136
+    Top = 80
   end
   object labPort: TLabel
-    Position.X = 16.000000000000000000
-    Position.Y = 16.000000000000000000
+    Align = Top
     Scale.X = 2.000000000000000000
     Scale.Y = 2.000000000000000000
+    Size.Width = 223.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
     Text = 'labPort'
   end
   object tmrClose: TTimer
     Enabled = False
-    Interval = 3000
     OnTimer = tmrCloseTimer
-    Left = 208
-    Top = 184
+    Left = 48
+    Top = 88
   end
 end

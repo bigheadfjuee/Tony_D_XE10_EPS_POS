@@ -1,5 +1,5 @@
-unit Unit1;
-
+ï»¿unit Unit1;
+
 interface
 
 uses
@@ -20,8 +20,10 @@ type
     procedure tmrCloseTimer(Sender: TObject);
   private
     { Private declarations }
-    strPort: String;
+    strPort, inFileName: String;
+    tAutoClose: Integer;
     procedure LoadIniFile;
+    procedure WriteFileToPort(filePath: string);
   public
     { Public declarations }
   end;
@@ -38,73 +40,91 @@ var
   iniFile: TIniFile;
 begin
   try
-    iniFile := TIniFile.Create('.\setting.ini'); // °õ¦æÀÉªº¥Ø¿ý¤U
-    // LPT1, \\.\USB001
-    strPort := iniFile.ReadString('setting', 'port', '');
-  finally
-    iniFile.DisposeOf;;
-  end;
+    iniFile := TIniFile.Create('.\setting.ini'); // åŸ·è¡Œæª”çš„ç›®éŒ„ä¸‹
 
+    // LPT1 æˆ– \\.\USB001
+    strPort := iniFile.ReadString('setting', 'port', '\\.\USB001');
+
+    inFileName := iniFile.ReadString('setting', 'inFileName', 'test.txt');
+    tAutoClose := iniFile.ReadInteger('setting', 'tAutoClose', 3);
+  finally
+
+  end;
+  iniFile.DisposeOf;
+end;
+
+{
+  // ESC æŽ§åˆ¶ç¢¼
+  write(f, chr(27) + 'a' + chr(49)); // æœ€å¾Œä¸€ç¢¼ 48ï¼šæ–‡å­—é å·¦å°é½Š 49ï¼šç½®ä¸­å°é½Š
+  write(f, chr(27) + '!' + chr(6)); // è‹±æ–‡å­—æ”¾å¤§å€çŽ‡
+  write(f, chr(28) + '!' + chr(1)); // ä¸­æ–‡å­—æ”¾å¤§å€çŽ‡
+  write(f, chr(29) + 'w' + chr(1)); // æ¢ç¢¼å¯¬åº¦ï¼Œæœ€å°å–®ä½ 1,2,3
+  write(f, chr(29) + 'h' + chr(36)); // æ¢ç¢¼é«˜åº¦
+  write(f, chr(29) + 'H' + chr(3)); // æ¢ç¢¼å€¼è¦å°åœ¨å“ªè£¡ï¼Ÿ( 0ï¼šä¸å°ï¼Œ1ï¼šæ¢ç¢¼ä¸Šé¢ï¼Œ2ï¼šæ¢ç¢¼ä¸‹é¢ï¼Œ3ï¼šæ¢ç¢¼ä¸Šä¸‹éƒ½å°)
+  write(f, chr(29) + 'f' + chr(1)); // HRIå­—é«”
+  write(f, chr(28) + chr(40) + chr(76) + chr(2) + chr(0) + chr(66) + chr(49));
+  // FS (L é€ç´™åˆ°å®šä½é»ž
+  write(f, chr(29) + chr(86) + chr(0)); // åˆ‡ç´™
+  closefile(f);
+}
+
+procedure TForm1.WriteFileToPort(filePath: string);
+var
+  f: TextFile;
+  strList: TStringList;
+begin
+  if fileexists(filePath) then
+  begin
+    try
+      Memo1.Lines.Add('==== æª”æ¡ˆå…§å®¹ ====');
+      strList := TStringList.Create;
+      strList.LoadFromFile(filePath);
+      Memo1.Lines.Add(strList.Text);
+      Memo1.Lines.Add('===================');
+
+      Assignfile(f, strPort);
+      rewrite(f);
+      // å‚³é€ EPSON çš„æŽ§åˆ¶ç¢¼ (ESC)
+      write(f, chr(27) + '@' + chr(1)); // ESC @ => initialize
+      write(f, chr(27) + '!' + chr(0)); // ESC ! => font A
+      write(f, chr(27) + 'a' + chr(0)); // ESC a 0 => æ–‡å­—é å·¦å°é½Š
+      // å¯«å…¥æª”æ¡ˆå…§å®¹
+      write(f, PChar(strList.Text));
+      // çµå°¾
+      write(f, chr(10)); // Line Feeding
+      closefile(f);
+
+      Memo1.Lines.Add('åˆ—å°å®Œç•¢');
+      strList.DisposeOf();
+    except
+      on e: Exception do
+        Memo1.Lines.Add('Assignfile ä¾‹å¤–ç™¼ç”Ÿ: ' + e.ToString);
+    end;
+  end
+  else
+    Memo1.Lines.Add(filePath + ' æª”æ¡ˆä¸å­˜åœ¨ï¼');
+
+  Memo1.Lines.SaveToFile('.\log.txt');
+  tmrClose.Enabled := True;
 end;
 
 procedure TForm1.btnStartClick(Sender: TObject);
-var
-  f: textfile;
 begin
   if OpenDialog1.Execute then
   begin
-    Memo1.Lines.LoadFromFile(OpenDialog1.FileName);
-    Assignfile(f, strPort);
-
-    rewrite(f);
-    write(f, chr(27) + '@' + chr(1)); // ESC a => initialize
-    write(f, chr(27) + '!' + chr(0)); // ESC ! => font A
-    write(f, chr(27) + 'a' + chr(0)); // ESC a 0 => ¤å¦r¾a¥ª¹ï»ô
-    write(f, PChar(Memo1.Lines.Text));
-    write(f, chr(10)); // Line Feeding
-    closefile(f);
-    {
-      // ±±¨î½X
-      write(f, chr(27) + 'a' + chr(49)); // ³Ì«á¤@½X 48¡G¤å¦r¾a¥ª¹ï»ô 49¡G¸m¤¤¹ï»ô
-      write(f, chr(27) + '!' + chr(6)); // ­^¤å¦r©ñ¤j­¿²v
-      write(f, chr(28) + '!' + chr(1)); // ¤¤¤å¦r©ñ¤j­¿²v
-      write(f, chr(29) + 'w' + chr(1)); // ±ø½X¼e«×¡A³Ì¤p³æ¦ì 1,2,3
-      write(f, chr(29) + 'h' + chr(36)); // ±ø½X°ª«×
-      write(f, chr(29) + 'H' + chr(3)); // ±ø½X­È­n¦L¦b­þ¸Ì¡H( 0¡G¤£¦L¡A1¡G±ø½X¤W­±¡A2¡G±ø½X¤U­±¡A3¡G±ø½X¤W¤U³£¦L)
-      write(f, chr(29) + 'f' + chr(1)); // HRI¦rÅé
-      write(f, chr(28) + chr(40) + chr(76) + chr(2) + chr(0) + chr(66) + chr(49));
-      // FS (L °e¯È¨ì©w¦ìÂI
-      write(f, chr(29) + chr(86) + chr(0)); // ¤Á¯È
-      closefile(f);
-    }
+    WriteFileToPort(OpenDialog1.FileName);
   end;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
-var
-  f: textfile;
 begin
   LoadIniFile;
   labPort.Text := 'Port: ' + strPort;
+  tmrClose.Enabled := false;
+  tmrClose.Interval := tAutoClose * 1000;
+  Memo1.Lines.Add('è‡ªå‹•é—œé–‰(s):' + tAutoClose.ToString);
 
-  if fileexists('test.txt') then
-  begin
-    Memo1.Lines.LoadFromFile('test.txt');
-    Assignfile(f, strPort);
-    rewrite(f);
-    write(f, chr(27) + '@' + chr(1)); // ESC a => initialize
-    write(f, chr(27) + '!' + chr(0)); // ESC ! => font A
-    write(f, chr(27) + 'a' + chr(0)); // ESC a 0 => ¤å¦r¾a¥ª¹ï»ô
-    write(f, PChar(Memo1.Lines.Text));
-    write(f, chr(10)); // Line Feeding
-    closefile(f);
-
-    tmrClose.Enabled := True;
-    Memo1.Lines.Add('¦C¦L§¹²¦¡A¤T¬í«áÃö³¬');
-  end
-  else
-    ShowMessage('test.txt ÀÉ®×¤£¦s¦b¡I');
-
+  WriteFileToPort(inFileName);
 end;
 
 procedure TForm1.tmrCloseTimer(Sender: TObject);
@@ -113,3 +133,4 @@ begin
 end;
 
 end.
+

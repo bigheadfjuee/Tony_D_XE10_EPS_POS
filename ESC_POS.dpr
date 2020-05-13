@@ -1,4 +1,4 @@
-program ESC_POS;
+﻿program ESC_POS;
 
 uses
   System.StartUpCopy,
